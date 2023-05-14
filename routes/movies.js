@@ -7,11 +7,13 @@ const Comment = require('../models/Comment.model')
 
 
 //returns all movies
+//working
 router.get('/all-movies', (req, res, next) => {
     Movie.find()
         .populate('addedBy')
         .then((movies) => {
-            return movies.json
+            console.log(movies)
+            res.json(movies)
         })
         .catch((err) => {
             console.log(err)
@@ -25,7 +27,8 @@ router.get('/movie-details/:id', (req, res, next) => {
     {
         Movie.findById(req.params.id)
             .then((foundMovie) => {
-                return res.json
+                console.log(foundMovie)
+                res.json(foundMovie)
             })
             .catch((err) => {
                 console.log(err)
@@ -48,7 +51,7 @@ router.post('/add-movie', (req, res, next) => {
     })
         .then((newMovie) => {
             console.log(newMovie)
-            return res.json  //not sure what to do here
+            res.json(newMovie)
         })
         .catch((err) => {
             console.log(err)
@@ -65,8 +68,8 @@ router.get('/search-movies', (req, res, next) => {
 
     axios.get(apiUrl, { params: { t: movieName.t } })
         .then((movie) => {
-            console.log(movie.data)
-            return movie.json // not sure how to return 
+            console.log(movie)
+            res.json(movie)
         })
         .catch((err) => {
             console.log(err)

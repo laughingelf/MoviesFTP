@@ -12,7 +12,8 @@ router.post('/add-comment/:id', (req, res, next) => {
         rating: req.body.rating
     })
         .then((newComment) => {
-            ///not sure what to do here
+            console.log(newComment)
+            res.json(newComment)
         })
         .catch((err) => {
             console.log(err)
@@ -24,7 +25,8 @@ router.post('/update-comment/:id', (req, res, next) => {
     const { id } = req.params
     Comment.findByIdAndUpdate(id, req.body, { new: true })
         .then((updatedComment) => {
-            //not sure what to here
+            console.log(updatedComment)
+            res.json(updatedComment)
         })
         .catch((err) => {
             console.log(err)
@@ -37,7 +39,8 @@ router.get('/delete-comment/:id', (req, res, next) => {
     const { id } = req.params
     Comment.findByIdAndDelete(id)
         .then((delComment) => {
-            //not sure what to do here
+            console.log(delComment)
+            res.json(delComment)
         })
         .catch((err) => {
             console.log(err)

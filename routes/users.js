@@ -9,6 +9,7 @@ router.get('/', function (req, res, next) {
 });
 
 //get all users
+//working
 router.get('/all-users', (req, res, next) => {
   User.find()
     .then((users) => {
