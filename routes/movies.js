@@ -34,13 +34,21 @@ router.get('/movie-details/:id', (req, res, next) => {
 })
 
 //add movie
+//Working
 router.post('/add-movie', (req, res, next) => {
+    console.log('Im Hit')
     const movie = req.body
+    console.log(movie)
     Movie.create({
-        movie
+        Title: movie.Title,
+        Year: movie.Year,
+        Rated: movie.Rated,
+        Runtime: movie.Runtime,
+        Genre: movie.Genre
     })
         .then((newMovie) => {
-            //not sure what to do here
+            console.log(newMovie)
+            return res.json  //not sure what to do here
         })
         .catch((err) => {
             console.log(err)
@@ -48,14 +56,17 @@ router.post('/add-movie', (req, res, next) => {
 })
 
 //search function to get new movie details
+//working
 router.get('/search-movies', (req, res, next) => {
-    let { movieName } = req.body
+    let movieName = req.body
+    console.log(movieName)
 
     const apiUrl = `http://www.omdbapi.com/?apikey=${(process.env.API_KEY)}&`
 
-    axios.get(apiUrl, { params: { t: movieName } })
+    axios.get(apiUrl, { params: { t: movieName.t } })
         .then((movie) => {
-            return movie.json
+            console.log(movie.data)
+            return movie.json // not sure how to return 
         })
         .catch((err) => {
             console.log(err)
