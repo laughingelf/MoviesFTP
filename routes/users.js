@@ -23,6 +23,8 @@ router.get('/all-users', (req, res, next) => {
 
 })
 
+
+
 //update user
 router.post('/update-user/:id', (req, res, next) => {
   const { id } = req.params

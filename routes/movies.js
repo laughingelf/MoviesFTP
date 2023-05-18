@@ -12,7 +12,7 @@ router.get('/all-movies', (req, res, next) => {
     Movie.find()
         .populate('addedBy')
         .then((movies) => {
-            console.log(movies)
+            // console.log(movies)
             res.json(movies)
         })
         .catch((err) => {
@@ -39,7 +39,6 @@ router.get('/movie-details/:id', (req, res, next) => {
 //add movie
 //Working
 router.post('/add-movie', (req, res, next) => {
-    console.log('Im Hit')
     const movie = req.body
     console.log(movie)
     Movie.create({
@@ -47,7 +46,15 @@ router.post('/add-movie', (req, res, next) => {
         Year: movie.Year,
         Rated: movie.Rated,
         Runtime: movie.Runtime,
-        Genre: movie.Genre
+        Genre: movie.Genre,
+        Director: movie.Director,
+        Actors: movie.Actors,
+        Plot: movie.Plot,
+        Awards: movie.Awards,
+        Poster: movie.Poster,
+        imdbRating: movie.imdbRating,
+        imdbVotes: movie.imdbVotes,
+        BoxOffice: movie.BoxOffice
     })
         .then((newMovie) => {
             console.log(newMovie)
@@ -61,14 +68,16 @@ router.post('/add-movie', (req, res, next) => {
 //search function to get new movie details
 //working
 router.get('/search-movies', (req, res, next) => {
-    let movieName = req.body
-    console.log(movieName)
+    const { search } = req.body
+    console.log(search)
 
-    const apiUrl = `http://www.omdbapi.com/?apikey=${(process.env.API_KEY)}&`
+    const apiKey = '207ef136'
 
-    axios.get(apiUrl, { params: { t: movieName.t } })
+    const apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&`
+
+    axios.get(apiUrl, { params: { t: search } })
         .then((movie) => {
-            console.log(movie)
+            // console.log('THIS IS HT EMOVE', movie)
             res.json(movie)
         })
         .catch((err) => {
