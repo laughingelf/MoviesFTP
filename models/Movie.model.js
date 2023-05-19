@@ -17,6 +17,7 @@ const movieSchema = new Schema(
         imdbRating: { type: String },
         imdbVotes: { type: String },
         BoxOffice: { type: String },
+        imdbID: { type: String },
         addedBy: { type: Schema.Types.ObjectId, ref: "User" },
         userRatings: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
 

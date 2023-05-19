@@ -41,21 +41,38 @@ router.get('/movie-details/:id', (req, res, next) => {
 router.post('/add-movie', (req, res, next) => {
     const movie = req.body
     console.log(movie)
-    Movie.create({
-        Title: movie.Title,
-        Year: movie.Year,
-        Rated: movie.Rated,
-        Runtime: movie.Runtime,
-        Genre: movie.Genre,
-        Director: movie.Director,
-        Actors: movie.Actors,
-        Plot: movie.Plot,
-        Awards: movie.Awards,
-        Poster: movie.Poster,
-        imdbRating: movie.imdbRating,
-        imdbVotes: movie.imdbVotes,
-        BoxOffice: movie.BoxOffice
-    })
+
+
+    Movie.find({ imdbID: movie.imdbID })
+        .then((foundMovie) => {
+            console.log('this is the bs found  movie" ', foundMovie)
+            if (foundMovie.length) {
+                res.json({
+                    message: 'Movie is already in Database',
+                    f_id: foundMovie[0]._id
+                })
+                return;
+            }
+
+            return Movie.create({
+                Title: movie.Title,
+                Year: movie.Year,
+                Rated: movie.Rated,
+                Runtime: movie.Runtime,
+                Genre: movie.Genre,
+                Director: movie.Director,
+                Actors: movie.Actors,
+                Plot: movie.Plot,
+                Awards: movie.Awards,
+                Poster: movie.Poster,
+                imdbRating: movie.imdbRating,
+                imdbVotes: movie.imdbVotes,
+                BoxOffice: movie.BoxOffice,
+                imdbID: movie.imdbID
+
+            })
+
+        })
         .then((newMovie) => {
             console.log(newMovie)
             res.json(newMovie)
@@ -63,6 +80,8 @@ router.post('/add-movie', (req, res, next) => {
         .catch((err) => {
             console.log(err)
         })
+
+
 })
 
 //search function to get new movie details
