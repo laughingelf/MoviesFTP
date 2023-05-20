@@ -18,6 +18,42 @@ const User = require('../models/User.model')
 //login
 router.post('/login', (req, res, next) => {
     console.log('Logging in')
+    const { email, password } = req.body
+    console.log(req.body)
+
+    if (email === '' || password === '') {
+        res.status(400).json({ message: "Provide email and password" })
+        return
+    }
+
+    User.findOne({ email })
+        .then((foundUser) => {
+
+            if (!foundUser) {
+                res.status(401).json({ message: "user not found" })
+            }
+            console.log('a user was found', foundUser)
+            const passwordVerified = bcryptjs.compareSync(password, foundUser.password)
+
+            if (passwordVerified) {
+
+                const { _id, email, username, firstName, lastName, birthDate } = foundUser
+
+                const payload = { _id, username, email, firstName, lastName, birthDate }
+
+                const authToken = jwt.sign(
+                    payload,
+                    process.env.SECRET,
+                    { algorithm: 'HS256', expiresIn: "6h" }
+                )
+
+                res.status(200).json({ authToken: authToken, user: payload })
+            } else {
+                res.status(401).json({ message: "Unable to authenticate user." })
+            }
+
+        })
+        .catch(err => res.status(500).json({ message: "Internal Server Error" }))
 })
 
 //logout

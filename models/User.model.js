@@ -8,7 +8,8 @@ const userSchema = new Schema(
         username: { type: String },
         email: { type: String },
         birthDate: { type: Date },
-        password: { type: String }
+        password: { type: String },
+        profilePicUrl: { type: String }
 
     },
     {
