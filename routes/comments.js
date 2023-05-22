@@ -1,19 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
+
 const Movie = require('../models/Movie.model')
 const Comment = require('../models/Comment.model')
 
 //add comment
 router.post('/add-comment/:id', (req, res, next) => {
+
+    const { id } = req.params
     Comment.create({
-        username: req.session.username._id,
-        comment: req.body.comment,
-        rating: req.body.rating
+        username: req.body.username,
+        userComments: req.body.userComments,
+        overallRating: req.body.overallRating,
+        watchAgainRating: req.body.watchAgainRating,
+        trashCanRating: req.body.trashCanRating
     })
         .then((newComment) => {
             console.log(newComment)
-            res.json(newComment)
+            Movie.findByIdAndUpdate(id, { $push: { userRatings: newComment._id } })
+                .then((updatedMovie) => {
+                    res.json(updatedMovie)
+                })
         })
         .catch((err) => {
             console.log(err)

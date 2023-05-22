@@ -4,8 +4,10 @@ const { Schema, model } = require('mongoose')
 const commentSchema = new Schema(
     {
         username: { type: Schema.Types.ObjectId, ref: "User" },
-        comment: { type: String },
-        rating: { type: Number }
+        userComments: { type: String },
+        overallRating: { type: Number },
+        watchAgainRating: { type: Number },
+        trashCanRating: { type: Number }
 
     },
     {

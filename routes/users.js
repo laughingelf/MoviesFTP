@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+const fileUploader = require('../cloudinary.config')
 const User = require('../models/User.model')
 
 /* GET users listing. */
@@ -48,4 +48,24 @@ router.get('/delete-user/:id', (req, res, next) => {
       console.log(err)
     })
 })
+
+router.post('/update-photo/:id', fileUploader.single('imageUrl'), (req, res, next) => {
+  const { id } = req.params
+  const { imageUrl } = req.body
+  console.log('req path', imageUrl)
+  User.findByIdAndUpdate(id,
+    {
+      profilePicUrl: imageUrl
+    },
+    { new: true })
+    .then((updatedUser) => {
+      res.json(updatedUser)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+})
+
+
+
 module.exports = router;
