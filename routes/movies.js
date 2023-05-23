@@ -11,8 +11,12 @@ const Comment = require('../models/Comment.model')
 router.get('/all-movies', (req, res, next) => {
     Movie.find()
         .populate('addedBy')
+        .populate({
+            path: 'userRatings',
+            populate: { path: "username" }
+        })
         .then((movies) => {
-            // console.log(movies)
+            console.log(movies)
             res.json(movies)
         })
         .catch((err) => {

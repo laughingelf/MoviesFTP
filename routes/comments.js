@@ -9,6 +9,8 @@ const Comment = require('../models/Comment.model')
 router.post('/add-comment/:id', (req, res, next) => {
 
     const { id } = req.params
+    console.log('this is the id', id)
+    console.log('this is the body', req.body)
     Comment.create({
         username: req.body.username,
         userComments: req.body.userComments,
