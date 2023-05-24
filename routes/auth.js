@@ -132,7 +132,14 @@ router.post('/signup', (req, res, next) => {
 
 
 router.get('/verify', isAuthenticated, (req, res, next) => {
-    res.status(200).json(req.user)
+    User.findById(req.user._id)
+        .then((foundUser) => {
+            delete foundUser._doc.password
+            res.status(200).json(foundUser)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 })
 
 

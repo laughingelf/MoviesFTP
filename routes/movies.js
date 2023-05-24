@@ -16,7 +16,6 @@ router.get('/all-movies', (req, res, next) => {
             populate: { path: "username" }
         })
         .then((movies) => {
-            console.log(movies)
             res.json(movies)
         })
         .catch((err) => {
