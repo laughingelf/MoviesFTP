@@ -32,6 +32,7 @@ router.post('/add-comment/:id', (req, res, next) => {
 
 //edit comment
 router.post('/update-comment/:id', (req, res, next) => {
+    console.log('this is the id', req.params)
     const { id } = req.params
     Comment.findByIdAndUpdate(id, req.body, { new: true })
         .then((updatedComment) => {
