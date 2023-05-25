@@ -28,12 +28,14 @@ router.post('/login', (req, res, next) => {
 
     User.findOne({ email })
         .then((foundUser) => {
+            console.log('a user was found', foundUser)
 
             if (!foundUser) {
                 res.status(401).json({ message: "user not found" })
+                return
             }
-            console.log('a user was found', foundUser)
             const passwordVerified = bcryptjs.compareSync(password, foundUser.password)
+
 
             if (passwordVerified) {
 

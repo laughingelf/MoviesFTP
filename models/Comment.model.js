@@ -7,7 +7,8 @@ const commentSchema = new Schema(
         userComments: { type: String },
         overallRating: { type: Number },
         watchAgainRating: { type: Number },
-        trashCanRating: { type: Number }
+        trashCanRating: { type: Number },
+        movieId: { type: Schema.Types.ObjectId, ref: "Movie" }
 
     },
     {

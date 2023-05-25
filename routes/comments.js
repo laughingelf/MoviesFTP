@@ -16,7 +16,8 @@ router.post('/add-comment/:id', (req, res, next) => {
         userComments: req.body.userComments,
         overallRating: req.body.overallRating,
         watchAgainRating: req.body.watchAgainRating,
-        trashCanRating: req.body.trashCanRating
+        trashCanRating: req.body.trashCanRating,
+        movieId: req.body.movieId
     })
         .then((newComment) => {
             console.log(newComment)
