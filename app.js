@@ -29,10 +29,19 @@ app.set('trust proxy', 1); //needed when deploying online
 app.enable('trust proxy'); //needed when deploying online
 
 app.use(
-  cors({
-    origin: ['http://localhost:3000']  // <== URL of our future React app
-  })
+  cors()
 ); // can pass without arguments as last resort if getting errors
+app.options('*', cors());
+// app.use(
+//   cors({
+//     origin: ['https://master--reliable-snickerdoodle-8abd38.netlify.app']  // <== URL of our future React app
+//   })
+// ); // can pass without arguments as last resort if getting errors
+// app.use(
+//   cors({
+//     origin: ['http://localhost:3000']  // <== URL of our future React app
+//   })
+// ); // can pass without arguments as last resort if getting errors
 
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);

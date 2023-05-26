@@ -1,0 +1,16 @@
+# fly.toml app configuration file generated for movies-ftp on 2023-05-25T15:05:54-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "movies-ftp"
+primary_region = "dfw"
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true

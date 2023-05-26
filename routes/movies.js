@@ -89,23 +89,57 @@ router.post('/add-movie', (req, res, next) => {
 
 //search function to get new movie details
 //working
-router.get('/search-movies', (req, res, next) => {
-    const { search } = req.body
-    console.log(search)
+router.get('/search-movies/:search', (req, res, next) => {
+    const { search } = req.params
 
-    const apiKey = '207ef136'
+    console.log('these are the params: ', search)
 
-    const apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&`
+    const options = {
+        method: 'GET',
+        url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${search}`,
+        params: {
+            exact: 'false',
+            titleType: 'movie'
+        },
+        headers: {
+            'X-RapidAPI-Key': '39af2f4383msha9a56f3ac4a9f8ep12c99ajsn19417c0ac7dd',
+            'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+        }
+    };
 
-    axios.get(apiUrl, { params: { t: search } })
-        .then((movie) => {
-            // console.log('THIS IS HT EMOVE', movie)
-            res.json(movie)
+    axios.request(options)
+        .then((results) => {
+            console.log(results.data)
+            res.json(results.data)
         })
         .catch((err) => {
             console.log(err)
         })
 })
+
+
+
+
+
+
+// router.get('/search-movies/:search', (req, res, next) => {
+//     const { search } = req.params
+
+//     console.log('these are the params: ', search)
+
+//     const apiKey = '207ef136'
+
+//     const apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&`
+
+//     axios.get(apiUrl, { params: { t: search } })
+//         .then((movie) => {
+//             console.log('THIS IS THE MOVIE', movie)
+//             res.json(movie)
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         })
+// })
 
 
 
